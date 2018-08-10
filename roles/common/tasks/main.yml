@@ -1,0 +1,58 @@
+- name: Add Visual studio code repo
+  yum_repository:
+    name: code
+    description: Visual studio code repository
+    file: vscode
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    enabled: yes
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    gpgcheck: yes
+
+- name: Install common packages
+  dnf:
+    state: present
+    name: "{{ item }}"
+  with_items:
+  - adapta-gtk-theme
+  - ansible
+  - arduino
+  - autojump
+  - chrome-gnome-shell
+  - code
+  - copr-cli
+  - docker
+  - feh
+  - filezilla
+  - git
+  - git-review
+  - gpg
+  - htop
+  - ipython
+  - jq
+  - libselinux-python
+  - NetworkManager-openvpn
+  - NetworkManager-openvpn-gnome
+  - python-devel
+  - python-nose
+  - python-pudb
+  - python2-gnupg
+  - thefuck
+  - thunderbird
+  - vim
+  - virt-manager
+  - weechat
+  - zsh
+
+- name: Create some users
+  user:
+    name: "{{ item.user }}"
+    shell: "{{ shell }}"
+  with_items: "{{ all_users }}"
+
+- name: Ensure that those users own their homedir
+  file:
+      dest: "{{ item.homedir }}"
+      owner: "{{ item.user }}"
+      group: "{{ item.user }}"
+      state: directory
+  with_items: "{{ all_users }}"
