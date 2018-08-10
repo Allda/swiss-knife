@@ -1,0 +1,7 @@
+all_users:
+- user: araszka
+  homedir: /home/araszka
+- user: root
+  homedir: /root
+
+shell: /usr/bin/zsh
