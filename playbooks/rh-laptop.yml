@@ -1,0 +1,9 @@
+---
+
+- name: Configuration of Red Hat's Laptop
+  hosts: rh-laptop
+  become: yes
+
+  roles:
+  - common
+  - redhat
