@@ -1,0 +1,55 @@
+
+- name: Add rcm-tools repo
+  yum_repository:
+    name: rcm-tools
+    description: RCM tools repository
+    file: rcm_tools
+    baseurl: http://download.devel.redhat.com/rel-eng/RCMTOOLS/latest-RCMTOOLS-2-RHEL-7/compose/Workstation/$basearch/os/
+    gpgcheck: yes
+
+- name: Add rcm-tools optional repo
+  yum_repository:
+    name: rcm-tools-optional
+    description: RCM tools repository - optional
+    file: rcm_tools
+    baseurl: http://download.devel.redhat.com/rel-eng/RCMTOOLS/latest-RCMTOOLS-2-RHEL-7/compose/Workstation-optional/$basearch/os/
+    gpgcheck: yes
+
+- name: Copy kerberos configuration file
+  copy:
+    src: krb5.conf
+    dest: /etc/krb5.conf
+    mode: 0644
+
+- name: Copy certificates
+  get_url:
+     url: "{{ item }}"
+     dest: "/etc/pki/ca-trust/source/anchors/{{ item | basename }}"
+  with_items:
+  - https://password.corp.redhat.com/cacert.crt
+  - https://password.corp.redhat.com/RH-IT-Root-CA.crt
+  - https://engineering.redhat.com/Eng-CA.crt
+
+- name: Update certificates
+  shell: update-ca-trust
+
+- name: Copy VPN rpms
+  copy:
+     src: "{{ item }}"
+     dest: "/tmp/{{ item }}"
+  with_items:
+  - redhat-internal-cert-install-0.1-7.el7.csb.noarch.rpm
+  - redhat-internal-NetworkManager-openvpn-profiles-0.1-30.el7.csb.noarch.rpm
+
+- name: Install common packages
+  dnf:
+    state: present
+    name: "{{ item }}"
+  with_items:
+  - krb5-workstation
+  - tito
+  - python2-rhmsg
+  - python-mock
+  - /tmp/redhat-internal-cert-install-0.1-7.el7.csb.noarch.rpm
+  - /tmp/redhat-internal-NetworkManager-openvpn-profiles-0.1-30.el7.csb.noarch.rpm
+
