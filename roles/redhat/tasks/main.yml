@@ -53,3 +53,11 @@
   - /tmp/redhat-internal-cert-install-0.1-7.el7.csb.noarch.rpm
   - /tmp/redhat-internal-NetworkManager-openvpn-profiles-0.1-30.el7.csb.noarch.rpm
 
+- name: Copy tools/script to ~/bin
+  copy:
+    src: "{{ item }}"
+    dest: "/home/araszka/bin/{{ item }}"
+    mode: 0755
+  with_items:
+  - rhpaste
+
