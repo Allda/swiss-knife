@@ -61,3 +61,19 @@
   with_items:
   - rhpaste
 
+- name: Create mount directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+   - /mnt/scratch
+
+- name: Mount nfs endpoints
+  mount:
+    path: "{{ item.path }}"
+    src: "{{ item.src }}"
+    fstype: nfs
+    state: mounted
+  with_items:
+   - { path: "/mnt/scratch", src: "nfs-01.eng.brq.redhat.com:/scratch"}
+
