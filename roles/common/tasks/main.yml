@@ -1,3 +1,23 @@
+- name: Create some users
+  user:
+    name: "{{ item.user }}"
+    shell: "{{ shell }}"
+  with_items: "{{ all_users }}"
+
+- name: Ensure that those users own their homedir
+  file:
+      dest: "{{ item.homedir }}"
+      owner: "{{ item.user }}"
+      group: "{{ item.user }}"
+      state: directory
+  with_items: "{{ all_users }}"
+
+- name: Make sure all remote user has my public ssh key
+  authorized_key:
+      user: "{{ item.user }}"
+      key: "{{ lookup('file', '/home/araszka/.ssh/id_rsa.pub') }}"
+  with_items: "{{ all_users }}"
+
 - name: Add Visual studio code repo
   yum_repository:
     name: code
@@ -42,17 +62,3 @@
   - virt-manager
   - weechat
   - zsh
-
-- name: Create some users
-  user:
-    name: "{{ item.user }}"
-    shell: "{{ shell }}"
-  with_items: "{{ all_users }}"
-
-- name: Ensure that those users own their homedir
-  file:
-      dest: "{{ item.homedir }}"
-      owner: "{{ item.user }}"
-      group: "{{ item.user }}"
-      state: directory
-  with_items: "{{ all_users }}"
