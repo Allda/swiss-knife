@@ -1,4 +1,3 @@
-
 - name: Add rcm-tools repo
   yum_repository:
     name: rcm-tools
@@ -23,35 +22,35 @@
 
 - name: Copy certificates
   get_url:
-     url: "{{ item }}"
-     dest: "/etc/pki/ca-trust/source/anchors/{{ item | basename }}"
+    url: "{{ item }}"
+    dest: "/etc/pki/ca-trust/source/anchors/{{ item | basename }}"
   with_items:
-  - https://password.corp.redhat.com/cacert.crt
-  - https://password.corp.redhat.com/RH-IT-Root-CA.crt
-  - https://engineering.redhat.com/Eng-CA.crt
+    - https://password.corp.redhat.com/cacert.crt
+    - https://password.corp.redhat.com/RH-IT-Root-CA.crt
+    - https://engineering.redhat.com/Eng-CA.crt
 
 - name: Update certificates
   shell: update-ca-trust
 
 - name: Copy VPN rpms
   copy:
-     src: "{{ item }}"
-     dest: "/tmp/{{ item }}"
+    src: "{{ item }}"
+    dest: "/tmp/{{ item }}"
   with_items:
-  - redhat-internal-cert-install-0.1-7.el7.csb.noarch.rpm
-  - redhat-internal-NetworkManager-openvpn-profiles-0.1-30.el7.csb.noarch.rpm
+    - redhat-internal-cert-install-0.1-7.el7.csb.noarch.rpm
+    - redhat-internal-NetworkManager-openvpn-profiles-0.1-30.el7.csb.noarch.rpm
 
 - name: Install common packages
   dnf:
     state: present
     name: "{{ item }}"
   with_items:
-  - krb5-workstation
-  - tito
-  - python2-rhmsg
-  - python-mock
-  - /tmp/redhat-internal-cert-install-0.1-7.el7.csb.noarch.rpm
-  - /tmp/redhat-internal-NetworkManager-openvpn-profiles-0.1-30.el7.csb.noarch.rpm
+    - krb5-workstation
+    - tito
+    - python2-rhmsg
+    - python-mock
+    - /tmp/redhat-internal-cert-install-0.1-7.el7.csb.noarch.rpm
+    - /tmp/redhat-internal-NetworkManager-openvpn-profiles-0.1-30.el7.csb.noarch.rpm
 
 - name: Copy tools/script to ~/bin
   copy:
@@ -59,14 +58,14 @@
     dest: "/home/araszka/bin/{{ item }}"
     mode: 0755
   with_items:
-  - rhpaste
+    - rhpaste
 
 - name: Create mount directories
   file:
     path: "{{ item }}"
     state: directory
   with_items:
-   - /mnt/scratch
+    - /mnt/scratch
 
 - name: Mount nfs endpoints
   mount:
@@ -75,5 +74,4 @@
     fstype: nfs
     state: mounted
   with_items:
-   - { path: "/mnt/scratch", src: "nfs-01.eng.brq.redhat.com:/scratch"}
-
+    - { path: "/mnt/scratch", src: "nfs-01.eng.brq.redhat.com:/scratch" }

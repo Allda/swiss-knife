@@ -6,16 +6,16 @@
 
 - name: Ensure that those users own their homedir
   file:
-      dest: "{{ item.homedir }}"
-      owner: "{{ item.user }}"
-      group: "{{ item.user }}"
-      state: directory
+    dest: "{{ item.homedir }}"
+    owner: "{{ item.user }}"
+    group: "{{ item.user }}"
+    state: directory
   with_items: "{{ all_users }}"
 
 - name: Make sure all remote user has my public ssh key
   authorized_key:
-      user: "{{ item.user }}"
-      key: "{{ lookup('file', '/home/araszka/.ssh/id_rsa.pub') }}"
+    user: "{{ item.user }}"
+    key: "{{ lookup('file', '/home/araszka/.ssh/id_rsa.pub') }}"
   with_items: "{{ all_users }}"
 
 - name: Add Visual studio code repo
@@ -33,32 +33,33 @@
     state: present
     name: "{{ item }}"
   with_items:
-  - adapta-gtk-theme
-  - ansible
-  - arduino
-  - autojump
-  - chrome-gnome-shell
-  - code
-  - copr-cli
-  - docker
-  - feh
-  - filezilla
-  - git
-  - git-review
-  - gpg
-  - htop
-  - ipython
-  - jq
-  - libselinux-python
-  - NetworkManager-openvpn
-  - NetworkManager-openvpn-gnome
-  - python-devel
-  - python-nose
-  - python-pudb
-  - python2-gnupg
-  - thefuck
-  - thunderbird
-  - vim
-  - virt-manager
-  - weechat
-  - zsh
+    - adapta-gtk-theme
+    - ansible
+    - arduino
+    - autojump
+    - chrome-gnome-shell
+    - code
+    - copr-cli
+    - docker
+    - feh
+    - filezilla
+    - git
+    - git-review
+    - gpg
+    - htop
+    - ipython
+    - jq
+    - libselinux-python
+    - NetworkManager-openvpn
+    - NetworkManager-openvpn-gnome
+    - python-devel
+    - python-nose
+    - python-pudb
+    - python2-gnupg
+    - thefuck
+    - thunderbird
+    - vim
+    - virt-manager
+    - weechat
+    - zsh
+    - ulauncher
