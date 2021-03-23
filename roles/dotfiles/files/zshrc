@@ -58,7 +58,7 @@ plugins=(git common-aliases sudo docker autojump autopep8 dnf history pip pylint
 
 # User configuration
 
-export PATH="/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/araszka/bin:/home/araszka/.local/bin:/home/araszka/bin:/home/araszka/bin:/usr/local/go/bin:$GOPATH/bin"
+export PATH="/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/home/araszka/bin:/home/araszka/.local/bin:/usr/local/go/bin:$GOPATH/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 source $ZSH/oh-my-zsh.sh
 

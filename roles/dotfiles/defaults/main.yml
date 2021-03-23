@@ -6,5 +6,6 @@ dotfiles:
   - vimrc
   - zshrc
 
-home_dir: /home/araszka
+main_user: araszka
+home_dir: "/home/{{ main_user }}"
 backup_dir: "{{ home_dir }}/.dotfiles_backup"

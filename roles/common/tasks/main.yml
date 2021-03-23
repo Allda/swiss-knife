@@ -15,8 +15,25 @@
 - name: Make sure all remote user has my public ssh key
   authorized_key:
     user: "{{ item.user }}"
-    key: "{{ lookup('file', '/home/araszka/.ssh/id_rsa.pub') }}"
+    key: "{{ lookup('file', '/home/{{ main_user }}/.ssh/id_rsa.pub') }}"
   with_items: "{{ all_users }}"
+
+- name: Create directory for executable files
+  ansible.builtin.file:
+    path: "/home/{{ main_user }}/bin/"
+    state: directory
+  tags:
+    - executable
+
+- name: Copy tools/script to ~/bin
+  copy:
+    src: "{{ item }}"
+    dest: "/home/{{ main_user }}/bin/{{ item }}"
+    mode: 0755
+  loop:
+    - diff-so-fancy
+  tags:
+    - executable
 
 - name: Add Visual studio code repo
   yum_repository:

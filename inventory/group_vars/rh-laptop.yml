@@ -4,4 +4,6 @@ all_users:
 - user: root
   homedir: /root
 
+main_user: araszka
+
 shell: /usr/bin/zsh

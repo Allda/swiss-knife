@@ -67,7 +67,7 @@
 - name: Copy tools/script to ~/bin
   copy:
     src: "{{ item }}"
-    dest: "/home/araszka/bin/{{ item }}"
+    dest: "/home/{{ main_user }}/bin/{{ item }}"
     mode: 0755
   with_items:
     - rhpaste
