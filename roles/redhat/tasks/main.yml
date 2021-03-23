@@ -14,11 +14,27 @@
     baseurl: http://download.devel.redhat.com/rel-eng/RCMTOOLS/latest-RCMTOOLS-2-RHEL-7/compose/Workstation-optional/$basearch/os/
     gpgcheck: yes
 
+- name: Create a directory for IPA cert
+  ansible.builtin.file:
+    path: /etc/ipa
+    state: directory
+  tags:
+    - kerberos
+
+- name: Copy IPA certificate
+  get_url:
+    url: https://password.corp.redhat.com/ipa.crt
+    dest: /etc/ipa/ca2.crt
+  tags:
+    - kerberos
+
 - name: Copy kerberos configuration file
   copy:
     src: krb5.conf
     dest: /etc/krb5.conf
     mode: 0644
+  tags:
+    - kerberos
 
 - name: Copy certificates
   get_url:
