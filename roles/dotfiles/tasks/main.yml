@@ -1,0 +1,21 @@
+---
+- name: Create a backup directory
+  ansible.builtin.file:
+    path: "{{ backup_dir }}"
+    state: directory
+  tags:
+    - backup
+
+- name: Backup current dotfiles
+  ansible.builtin.copy:
+    src: "{{ home_dir }}/.{{ item }}"
+    dest: "{{ backup_dir }}/{{ item }}"
+  loop: "{{ dotfiles }}"
+  tags:
+    - backup
+
+- name: Copy dotfiles
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ home_dir }}/.{{ item }}"
+  loop: "{{ dotfiles }}"

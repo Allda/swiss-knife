@@ -1,0 +1,9 @@
+---
+# defaults file for dotfiles
+dotfiles:
+  - bashrc
+  - vimrc
+  - zshrc
+
+home_dir: /home/araszka
+backup_dir: "{{ home_dir }}/.dotfiles_backup"

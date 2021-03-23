@@ -1,2 +1,2 @@
 [rh-laptop]
-localhost
+localhost   ansible_connection=local
