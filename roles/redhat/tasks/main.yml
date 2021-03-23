@@ -1,18 +1,14 @@
+---
 - name: Add rcm-tools repo
   yum_repository:
-    name: rcm-tools
-    description: RCM tools repository
+    name: rcm-tools-fedora
+    description: RCM Tools for Fedora $releasever (RPMs)
     file: rcm_tools
-    baseurl: http://download.devel.redhat.com/rel-eng/RCMTOOLS/latest-RCMTOOLS-2-RHEL-7/compose/Workstation/$basearch/os/
+    baseurl: https://download.devel.redhat.com/rel-eng/RCMTOOLS/latest-RCMTOOLS-2-F-$releasever/compose/Everything/$basearch/os/
     gpgcheck: yes
-
-- name: Add rcm-tools optional repo
-  yum_repository:
-    name: rcm-tools-optional
-    description: RCM tools repository - optional
-    file: rcm_tools
-    baseurl: http://download.devel.redhat.com/rel-eng/RCMTOOLS/latest-RCMTOOLS-2-RHEL-7/compose/Workstation-optional/$basearch/os/
-    gpgcheck: yes
+    gpgkey: https://download.devel.redhat.com/rel-eng/RCMTOOLS/RPM-GPG-KEY-rcminternal
+  tags:
+    - rcm-tools
 
 - name: Create a directory for IPA cert
   ansible.builtin.file:
