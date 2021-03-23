@@ -1,0 +1,44 @@
+[user]
+    email = araszka@redhat.com
+	name = Ales Raszka
+
+[alias]
+	ci = commit
+	st = status
+	br = branch
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+
+[format]
+    pretty = fuller
+[log]
+    decorate = short
+[core]
+	editor = vim
+	pager = diff-so-fancy | less
+[http "https://pkgs.fedoraproject.org"]
+	sslCAInfo = /home/araszka/.fedora-server-ca.cert
+[url "https://pkgs.fedoraproject.org/git/"]
+	insteadOf = git://pkgs.fedoraproject.org/
+[color "diff"]
+	whitespace = red reverse
+[push]
+	default = current
+[init]
+    templatedir = /home/araszka/.git-templates
+
+[color "diff"]
+  meta = "yellow bold"
+  commit = "green bold"
+  frag = "magenta bold"
+  old = "red bold"
+  new = "green bold"
+  whitespace = "red reverse"
+[color "diff-highlight"]
+  oldNormal = "red bold"
+  oldHighlight = "red bold 52"
+  newNormal = "green bold"
+  newHighlight = "green bold 22"
+[diff-so-fancy]
+	markEmptyLines = false
+[pull]
+	rebase = false
